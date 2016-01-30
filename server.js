@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
+app.get('/contactList', function(req, res) {
 
   db.contactList.find(function(err, docs) {
     res.json(docs);
@@ -63,5 +63,5 @@ app.put('/contactList/:id', function(req, res) {
 
 
 
-app.listen('https://boiling-wildwood-85823.herokuapp.com');
-console.log('heroku server running');
+app.listen(8000);
+console.log('server running on port: 8000');
