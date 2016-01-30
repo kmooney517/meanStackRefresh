@@ -1,12 +1,21 @@
-var app = angular.module('app', []);
+var app = angular
+  .module('app', [])
+  .constant('SERVER', {
+    URL: 'https://boiling-wildwood-85823.herokuapp.com',
+    CONFIG: {
+      headers: {}
+    }
+  });
 
 app.controller('appController', appController);
 
-function appController ($scope, $http) {
+function appController ($scope, $http, SERVER) {
+
+  var url = SERVER.URL;
 
   refresh();
   function refresh() {
-    $http.get('/contactList').success(function(res) {
+    $http.get(url+ '/contactList', SERVER.CONFIG).success(function(res) {
       console.log(res);
       $scope.contactList = res;
     });
