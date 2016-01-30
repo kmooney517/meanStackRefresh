@@ -11,7 +11,7 @@ app.controller('appController', appController);
 
 function appController ($scope, $http, SERVER) {
 
-  let url = SERVER.URL + '/contactList/';
+  let url = SERVER.URL;
 
   refresh();
   function refresh() {
