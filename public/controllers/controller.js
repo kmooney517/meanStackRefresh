@@ -15,8 +15,8 @@ function appController ($scope, $http, SERVER) {
 
   refresh();
   function refresh() {
-    $http.get(url+ '/contactList', SERVER.CONFIG).success(function(res) {
-      console.log(res);
+    $http.get(url+ '/', SERVER.CONFIG).success(function(res) {
+      console.log('hi', res);
       $scope.contactList = res;
     });
     $scope.contact = {};

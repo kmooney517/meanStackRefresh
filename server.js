@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-app.get('/contactList', function(req, res) {
+app.get('/', function(req, res) {
 
   db.contactList.find(function(err, docs) {
     res.json(docs);
