@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
+app.get('/contactList', function(req, res) {
 
   db.contactList.find(function(err, docs) {
     res.json(docs);
@@ -17,13 +17,13 @@ app.get('/', function(req, res) {
 
 });
 
-app.post('https://boiling-wildwood-85823.herokuapp.com/contactList', function(req, res) {
+app.post('/contactList', function(req, res) {
   db.contactList.insert(req.body, function(err, doc) {
     res.json(doc);
   });
 });
 
-app.delete('https://boiling-wildwood-85823.herokuapp.com/contactList/:id', function(req, res) {
+app.delete('/contactList/:id', function(req, res) {
   var id = req.params.id;
 
   db.contactList.remove({_id: mongojs.ObjectId(id)}, function(err, doc) {
@@ -31,7 +31,7 @@ app.delete('https://boiling-wildwood-85823.herokuapp.com/contactList/:id', funct
   });
 });
 
-app.get('https://boiling-wildwood-85823.herokuapp.com/contactList/:id', function(req, res) {
+app.get('/contactList/:id', function(req, res) {
   var id = req.params.id;
 
   db.contactList.findOne({_id: mongojs.ObjectId(id)}, function(err, doc) {
@@ -39,7 +39,7 @@ app.get('https://boiling-wildwood-85823.herokuapp.com/contactList/:id', function
   });
 });
 
-app.put('https://boiling-wildwood-85823.herokuapp.com/contactList/:id', function(req, res) {
+app.put('/contactList/:id', function(req, res) {
   var id = req.params.id;
 
   db.contactList.findAndModify({
