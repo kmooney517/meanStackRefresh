@@ -63,5 +63,5 @@ app.put('/contactList/:id', function(req, res) {
 
 
 
-app.listen(8000);
+app.listen(process.env.PORT || 8000);
 console.log('server running on port: 8000');
