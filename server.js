@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.get('/contactList', function(req, res) {
 
   db.contactList.find(function(err, docs) {
+
     res.json(docs);
   });
 
