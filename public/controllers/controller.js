@@ -32,21 +32,21 @@ function appController ($scope, $http) {
   }
 
   $scope.removeContact = function(id) {
-    $http.delete('/contactList/' + id).success(function(res) {
+    $http.delete('/contactList' + id).success(function(res) {
       refresh();
     });
   }
 
   $scope.editContact = function(id) {
     console.log(id);
-    $http.get('contactList/' + id).success(function(res) {
+    $http.get('contactList' + id).success(function(res) {
       $scope.contact = res;
     });
   }
 
   $scope.updateContact = function () {
     console.log('hi', $scope.contact._id);
-    $http.put('contactList/' + $scope.contact._id, $scope.contact).success(function(res) {
+    $http.put('contactList' + $scope.contact._id, $scope.contact).success(function(res) {
       console.log(res);
       refresh();
     });
