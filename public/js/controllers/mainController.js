@@ -6,7 +6,15 @@ app.controller('appController', appController);
 
 function appController ($scope, $http) {
 
-  // let url = SERVER.URL;
+  let vm = this;
+
+  vm.refresh = refresh;
+  vm.addContact = addContact;
+  vm.removeContact = removeContact;
+  vm.editContact = editContact;
+  vm.updateContact = updateContact;
+  vm.deselect = deselect;
+
 
   refresh();
   function refresh() {
@@ -17,27 +25,27 @@ function appController ($scope, $http) {
     $scope.contact = {};
   }
 
-  $scope.addContact = function() {
+
+  function addContact() {
     $http.post('/contactList', $scope.contact).success(function(res) {
       console.log(res);
     });
     refresh();
   }
 
-  $scope.removeContact = function(id) {
-    $http.delete('/contactList' + id).success(function(res) {
-      refresh();
+  function removeContact(id) {
+    $http.delete('/contactList/' + id).success(function(res) {
     });
+    refresh();  
   }
-
-  $scope.editContact = function(id) {
-    console.log(id);
+  
+  function editContact(id) {
     $http.get('contactList/' + id).success(function(res) {
       $scope.contact = res;
-    });
+    });    
   }
 
-  $scope.updateContact = function () {
+  function updateContact() {
     console.log('hi', $scope.contact._id);
     $http.put('contactList/' + $scope.contact._id, $scope.contact).success(function(res) {
       console.log(res);
@@ -45,8 +53,8 @@ function appController ($scope, $http) {
     });
   }
 
-  $scope.deselect = function () {
-    $scope.contact = {};
+  function deselect() {
+    $scope.contact = {}; 
   }
 
 
