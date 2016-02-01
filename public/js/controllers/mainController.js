@@ -6,9 +6,9 @@ app.controller('appController', appController);
 
 function appController ($scope, $http) {
 
-  let vm = this;
+  var vm = this;
 
-  vm.refresh = refresh;
+  vm.getContacts = getContacts;
   vm.addContact = addContact;
   vm.removeContact = removeContact;
   vm.editContact = editContact;
@@ -16,45 +16,69 @@ function appController ($scope, $http) {
   vm.deselect = deselect;
 
 
-  refresh();
-  function refresh() {
+  getContacts();
+  function getContacts() {
     $http.get('/contactList').success(function(res) {
       console.log(res);
-      $scope.contactList = res;
+      vm.contactList = res;
     });
-    $scope.contact = {};
+
+    $scope.$on('refreshList', function() {
+      $http.get('/contactList').success(function(res) {
+        vm.contactList = res;
+      });
+    });
   }
 
 
   function addContact() {
-    $http.post('/contactList', $scope.contact).success(function(res) {
-      console.log(res);
-    });
-    refresh();
+    if(vm.contact === undefined) {
+      alert('Nope, nope, nope.');
+    } else {
+      $http.post('/contactList', vm.contact).success(function(res) {
+        console.log(res);
+        $scope.$broadcast('refreshList');
+      });
+      vm.contact = {};
+    }
   }
 
   function removeContact(id) {
     $http.delete('/contactList/' + id).success(function(res) {
+      console.log(res);
+      $scope.$broadcast('refreshList');
     });
-    refresh();  
+
   }
   
   function editContact(id) {
     $http.get('contactList/' + id).success(function(res) {
-      $scope.contact = res;
+      vm.contact = res;
+      $scope.$broadcast('refreshList');
     });    
+
+    $('.editBtns').removeClass('hidden').addClass('shown');
+    $('.addBtn').addClass('hidden');
+
+
   }
 
   function updateContact() {
-    console.log('hi', $scope.contact._id);
-    $http.put('contactList/' + $scope.contact._id, $scope.contact).success(function(res) {
-      console.log(res);
-      refresh();
+    $http.put('contactList/' + vm.contact._id, vm.contact).success(function(res) {
+      $scope.$broadcast('refreshList');
     });
+
+    vm.contact = {};
+    $('.addBtn').removeClass('hidden').addClass('shown');
+    $('.editBtns').removeClass('shown').addClass('hidden');
+
+
   }
 
   function deselect() {
-    $scope.contact = {}; 
+    vm.contact = {}; 
+    $('.addBtn').removeClass('hidden').addClass('shown');
+    $('.editBtns').removeClass('shown').addClass('hidden');
   }
 
 

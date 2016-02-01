@@ -5,6 +5,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
 <body>
@@ -12,6 +13,8 @@
     <h1>Contact List App</h1>
     
     <table class="table">
+      
+      <!-- Heading for form -->
       <thead>
         <tr>
           <th>Name</th>
@@ -21,24 +24,41 @@
           <th>&nbsp;</th>
         </tr>
       </thead>
+
       <tbody>
+
+
+        <!-- Form for inputting new contacts -->
         <tr>
-          <td><input class="form-control" ng-model="contact.Name"></td>
-          <td><input class="form-control" ng-model="contact.Email"></td>
-          <td><input class="form-control" ng-model="contact.Number"></td>
-          <td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button></td>
-          <td><button class="btn btn-info" ng-click="updateContact()">Update</button>&nbsp; &nbsp;<button class="btn btn-info" ng-click="deselect()">Clear</button></td>
+          <td><input class="form-control" ng-model="vm.contact.Name"></td>
+          <td><input class="form-control" ng-model="vm.contact.Email"></td>
+          <td><input class="form-control" ng-model="vm.contact.Number"></td>
           
 
+          <td class="addBtn">
+            <button class="btn btn-primary" ng-click="vm.addContact(vm.contact)">Add Contact</button>
+          </td>
+          <td class="editBtns hidden">
+            <button class="btn btn-info" ng-click="vm.updateContact()">Update</button>
+            <button class="btn btn-info" ng-click="vm.deselect()">Cancel</button>
+          </td>
+
         </tr>
-        <tr ng-repeat="contact in contactList">
+
+
+        <!-- List of Contacts -->
+        <tr ng-repeat="contact in vm.contactList">
           <td>{{contact.Name}}</td>
           <td>{{contact.Email}}</td>
           <td>{{contact.Number}}</td>
-          <td><button ng-click="removeContact(contact._id)" class="btn btn-danger">Remove Contact</button></td>
-          <td><button class="btn btn-warning" ng-click="editContact(contact._id)">Edit</button></td>
+          <td>
+            <button ng-click="vm.removeContact(contact._id)" class="btn btn-danger">Remove Contact</button></td>
+          <td >
+            <button class="btn btn-warning" ng-click="vm.editContact(contact._id)">Edit</button>
+          </td>
         </tr>
       </tbody>
+
     </table>
     
   </div>
@@ -47,6 +67,7 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="js/controllers/mainController.js"></script>
 
 </body>
