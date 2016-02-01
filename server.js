@@ -1,9 +1,7 @@
-var express = require('express');
-var app = express();
-
-var mongojs = require('mongojs');
-
-var db = mongojs('mongodb://kmooney517:Allymooney2!@ds051625.mongolab.com:51625/refresh', ['contactList']);
+var express    = require('express');
+var app        = express();
+var mongojs    = require('mongojs');
+var db         = mongojs('mongodb://kmooney517:Allymooney2!@ds051625.mongolab.com:51625/refresh', ['contactList']);
 var bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/public'));
