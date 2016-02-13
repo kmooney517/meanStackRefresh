@@ -22,6 +22,9 @@ app.post('/contactList', function(req, res) {
   });
 });
 
+
+
+
 app.delete('/contactList/:id', function(req, res) {
   var id = req.params.id;
 
@@ -30,6 +33,8 @@ app.delete('/contactList/:id', function(req, res) {
   });
 });
 
+
+
 app.get('/contactList/:id', function(req, res) {
   var id = req.params.id;
 
@@ -37,6 +42,8 @@ app.get('/contactList/:id', function(req, res) {
     res.json(doc);
   });
 });
+
+
 
 app.put('/contactList/:id', function(req, res) {
   var id = req.params.id;
@@ -54,8 +61,7 @@ app.put('/contactList/:id', function(req, res) {
     },
     new: true
   }, function(err, doc) {
-      res.json(doc);
-    
+      res.json(doc);    
   });
 });
 
